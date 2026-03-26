@@ -13,57 +13,57 @@ CREATE TABLE projects (
   project_budget DECIMAL(12,2)
   project_status VARCHAR(50)
 );
-INSERT INTO employees VALUES (1,'Rohan Mehta','IT','Hyderabad'), 
+INSERT INTO employees (emp_id,emp_name,department,city) VALUES (1,'Rohan Mehta','IT','Hyderabad'), 
 (2,'Sneha Iyer','IT','Bangalore'),
 (3,'Kiran Patel','Finance','Mumbai'),
 (4,'Ananya Das','HR',NULL),
 (5,'Rahul Sharma','IT','Delhi'),
 (6,NULL,'Marketing','Chennai');
-INSERT INTO projects VALUES (101,1,'AI Chatbot',120000,'Active'),
+INSERT INTO projects (project_id,emp_id,project_name,project_budget,project_status) VALUES (101,1,'AI Chatbot',120000,'Active'),
 (102,1,'ML Prediction',90000,'Active'),
 (103,2,'Data Warehouse',150000,'Active'),
 (104,3,'Financial Dashboard',80000,'Completed'),
 (105,NULL,'Website Revmap',60000,'Pending'),
 (106,8,'Mobile App',100000,'Active'),
 -- 1
-SELECT e.emp_name, p.project_name, p.project_budget FROM employees e INNER JOIN projects p ON e.emp_id = p.emp_id;
+SELECT employees.emp_name, projects.project_name, projects.project_budget FROM employees INNER JOIN projects ON employees.emp_id = projects.emp_id;
 -- 2
-SELECT e.emp_name, p.project_name FROM employees e LEFT JOIN projects p ON e.emp_id = p.emp_id;
+SELECT employees.emp_name, projects.project_name FROM employees LEFT JOIN projects ON employees.emp_id = projects.emp_id;
 -- 3
-SELECT e.emp_name, p.project_name FROM employees e RIGHT JOIN projects p ON e.emp_id = p.emp_id;
+SELECT employees.emp_name, projects.project_name FROM employees RIGHT JOIN projects ON employees.emp_id = projects.emp_id;
 -- 4
-SELECT e.emp_name, p.project_name FROM employees e LEFT JOIN projects p ON e.emp_id = p.emp_id
+SELECT employees.emp_name, projects.project_name FROM employees LEFT JOIN projects ON employees.emp_id = projects.emp_id
 UNION
-SELECT e.emp_name, p.project_name FROM employees e RIGHT JOIN projects p ON e.emp_id = p.emp_id;
+SELECT employees.emp_name, projects.project_name FROM employees RIGHT JOIN projects ON employees.emp_id = projects.emp_id;
 -- 5
-SELECT e.emp_name, p.project_name FROM employees e CROSS JOIN projects p;
+SELECT employees.emp_name, projects.project_name FROM employees CROSS JOIN projects;
 -- 6
-SELECT e.emp_name, p.project_name FROM employees e JOIN projects p ON e.emp_id = p.emp_id WHERE e.department = 'IT';
+SELECT employees.emp_name, projects.project_name FROM employees JOIN projects ON employees.emp_id = projects.emp_id WHERE employees.department = 'IT';
 -- 7
 SELECT project_name, project_budget FROM projects WHERE project_budget > 100000;
 -- 8
-SELECT e.emp_name, p.project_name FROM employees e JOIN projects p ON e.emp_id = p.emp_id WHERE e.city = 'Hyderabad';
+SELECT employees.emp_name, projects.project_name FROM employees JOIN projects ON employees.emp_id = projects.emp_id WHERE employees.city = 'Hyderabad';
 -- 9
-SELECT e.emp_name, COUNT(p.project_id) AS total_projects FROM employees e LEFT JOIN projects p ON e.emp_id = p.emp_id GROUP BY e.emp_name;
+SELECT employees.emp_name, COUNT(projects.project_id) AS total_projects FROM employees LEFT JOIN projects ON employees.emp_id = projects.emp_id GROUP BY employees.emp_name;
 -- 10
-SELECT e.emp_name, SUM(p.project_budget) AS total_budget FROM employees e LEFT JOIN projects p ON e.emp_id = p.emp_id GROUP BY e.emp_name;
+SELECT employees.emp_name, SUM(projects.project_budget) AS total_budget FROM employees LEFT JOIN projects ON employees.emp_id = projects.emp_id GROUP BY employees.emp_name;
 -- 11
-SELECT e.department, AVG(p.project_budget) AS avg_budget FROM employees e JOIN projects p ON e.emp_id = p.emp_id GROUP BY e.department;
+SELECT employees.department, AVG(projects.project_budget) AS avg_budget FROM employees JOIN projects ON employees.emp_id = projects.emp_id GROUP BY employees.department;
 -- 12
-SELECT e.department, COUNT(p.project_id) AS total_projects FROM employees e LEFT JOIN projects p ON e.emp_id = p.emp_id GROUP BY e.department;
+SELECT employees.department, COUNT(projects.project_id) AS total_projects FROM employees LEFT JOIN projects ON employees.emp_id = projects.emp_id GROUP BY employees.department;
 -- 13
-SELECT e.department, SUM(p.project_budget) AS total_budget FROM employees e JOIN projects p ON e.emp_id = p.emp_id GROUP BY e.department;
+SELECT employees.department, SUM(projects.project_budget) AS total_budget FROM employees JOIN projects ON employees.emp_id = projects.emp_id GROUP BY employees.department;
 -- 14
 SELECT city, COUNT(*) AS total_employees FROM employees GROUP BY city;
 -- 15
-SELECT e.emp_name, COUNT(p.project_id) AS total_projects FROM employees e JOIN projects p ON e.emp_id = p.emp_id GROUP BY e.emp_name HAVING COUNT(p.project_id) > 1;
+SELECT employees.emp_name, COUNT(projects.project_id) AS total_projects FROM employees JOIN projects ON employees.emp_id = projects.emp_id GROUP BY employees.emp_name HAVING COUNT(projects.project_id) > 1;
 -- 16
-SELECT e.department, SUM(p.project_budget) AS total_budget FROM employees e JOIN projects p ON e.emp_id = p.emp_id GROUP BY e.department HAVING SUM(p.project_budget) > 150000;
+SELECT employees.department, SUM(projects.project_budget) AS total_budget FROM employees JOIN projects ON employees.emp_id = projects.emp_id GROUP BY employees.department HAVING SUM(projects.project_budget) > 150000;
 -- 17
-SELECT e.emp_name, SUM(p.project_budget) AS total_budget FROM employees e JOIN projects p ON e.emp_id = p.emp_id GROUP BY e.emp_name HAVING SUM(p.project_budget) > 100000;
+SELECT employees.emp_name, SUM(projects.project_budget) AS total_budget FROM employees JOIN projects ON employees.emp_id = projects.emp_id GROUP BY employees.emp_name HAVING SUM(projects.project_budget) > 100000;
 -- capstone
-SELECT e.emp_name, e.department, SUM(p.project_budget) AS total_budget
-FROM employees e JOIN projects p ON e.emp_id = p.emp_id GROUP BY e.emp_name, e.department HAVING SUM(p.project_budget) > 100000
+SELECT employees.emp_name, employees.department, SUM(projects.project_budget) AS total_budget
+FROM employees JOIN projects ON employees.emp_id = projects.emp_id GROUP BY employees.emp_name, employees.department HAVING SUM(projects.project_budget) > 100000
 ORDER BY total_budget DESC;
 
 
