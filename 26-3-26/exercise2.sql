@@ -26,31 +26,31 @@ INSERT INTO enrollments (enrollment_id,student_id,course_name,trainer,fee) VALUE
 (105,NULL,'Excel','Rohan',3000),
 (106,8,'Databricks','Ananya',9000);
 -- 1
-SELECT s.student_name, e.course_name FROM students s INNER JOIN enrollments e ON s.student_id = e.student_id;
+SELECT students.student_name, enrollments.course_name FROM students INNER JOIN enrollments ON students.student_id = enrollments.student_id;
 -- 2
-SELECT s.student_name, e.course_name FROM students s LEFT JOIN enrollments e ON s.student_id = e.student_id;
+SELECT students.student_name, enrollments.course_name FROM students LEFT JOIN enrollments ON students.student_id = enrollments.student_id;
 -- 3
-SELECT s.student_name, e.course_name FROM students s RIGHT JOIN enrollments e ON s.student_id = e.student_id;
+SELECT students.student_name, enrollments.course_name FROM students RIGHT JOIN enrollments ON students.student_id = enrollments.student_id;
 -- 4
-SELECT s.student_name, e.course_name FROM students s LEFT JOIN enrollments e ON s.student_id = e.student_id UNION
-SELECT s.student_name, e.course_name FROM students s RIGHT JOIN enrollments e ON s.student_id = e.student_id;
+SELECT students.student_name, enrollments.course_name FROM students LEFT JOIN enrollments ON students.student_id = enrollments.student_id UNION
+SELECT students.student_name, enrollments.course_name FROM students RIGHT JOIN enrollments ON students.student_id = enrollments.student_id;
 -- 5
-SELECT s.student_name, e.course_name FROM students s CROSS JOIN enrollments e;
+SELECT students.student_name, enrollments.course_name FROM students CROSS JOIN enrollments;
 -- 6
-SELECT s.student_name, e.course_name FROM students s JOIN enrollments e ON s.student_id = e.student_id WHERE s.city = 'Hyderabad';
+SELECT students.student_name, enrollments.course_name FROM students JOIN enrollments ON students.student_id = enrollments.student_id WHERE students.city = 'Hyderabad';
 -- 7
 SELECT course_name, fee FROM enrollments WHERE fee > 6000;
 -- 8
-SELECT s.student_name, COUNT(e.course_name) AS total_courses FROM students s LEFT JOIN enrollments e ON s.student_id = e.student_id GROUP BY s.student_name;
+SELECT students.student_name, COUNT(enrollments.course_name) AS total_courses FROM students LEFT JOIN enrollments ON students.student_id = enrollments.student_id GROUP BY students.student_name;
 -- 9
-SELECT s.student_name, SUM(e.fee) AS total_fee FROM students s LEFT JOIN enrollments e ON s.student_id = e.student_id GROUP BY s.student_name;
+SELECT students.student_name, SUM(enrollments.fee) AS total_fee FROM students LEFT JOIN enrollments ON students.student_id = enrollments.student_id GROUP BY students.student_name;
 -- 10
-SELECT s.student_name, COUNT(e.course_name) AS total_courses FROM students s JOIN enrollments e ON s.student_id = e.student_id GROUP BY s.student_name HAVING COUNT(e.course_name) > 1;
+SELECT students.student_name, COUNT(enrollments.course_name) AS total_courses FROM students JOIN enrollments ON students.student_id = enrollments.student_id GROUP BY students.student_name HAVING COUNT(enrollments.course_name) > 1;
 -- 11
 SELECT trainer, SUM(fee) AS total_fee FROM enrollments GROUP BY trainer HAVING SUM(fee) > 10000;
 -- 12
 SELECT city, COUNT(*) AS total_students FROM students GROUP BY city HAVING COUNT(*) > 1;
 -- capstone
-SELECT s.student_name,s.city,
-SUM(e.fee) AS total_fee_paid FROM students s
-JOIN enrollments e ON s.student_id = e.student_id GROUP BY s.student_name, s.city HAVING SUM(e.fee) > 5000 ORDER BY total_fee_paid DESC;
+SELECT students.student_name,students.city,
+SUM(enrollments.fee) AS total_fee_paid FROM students 
+JOIN enrollments ON students.student_id = enrollments.student_id GROUP BY students.student_name, students.city HAVING SUM(enrollments.fee) > 5000 ORDER BY total_fee_paid DESC;
