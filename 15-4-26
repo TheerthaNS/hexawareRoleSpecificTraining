@@ -1,0 +1,796 @@
+use library_db
+switched to db library_db
+db.members.find()
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6a'),
+  member_id: 1,
+  name: 'Aarav',
+  city: 'Hyderabad',
+  membership_type: 'Gold'
+}
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6b'),
+  member_id: 2,
+  name: 'Priya',
+  city: 'Bangalore',
+  membership_type: 'Silver'
+}
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6c'),
+  member_id: 3,
+  name: 'Rahul',
+  city: 'Mumbai',
+  membership_type: 'Gold'
+}
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6d'),
+  member_id: 4,
+  name: 'Sneha',
+  city: 'Delhi',
+  membership_type: 'Silver'
+}
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6e'),
+  member_id: 5,
+  name: 'Kiran',
+  city: 'Hyderabad',
+  membership_type: 'Gold'
+}
+db.books.find()
+{
+  _id: ObjectId('69df098ab38162dddd3b9d72'),
+  book_id: 101,
+  title: 'MongoDB Basics',
+  category: 'Database',
+  author: 'John Smith',
+  price: 500
+}
+{
+  _id: ObjectId('69df098ab38162dddd3b9d73'),
+  book_id: 102,
+  title: 'Python Fundamentals',
+  category: 'Programming',
+  author: 'Alice Brown',
+  price: 650
+}
+{
+  _id: ObjectId('69df098ab38162dddd3b9d74'),
+  book_id: 103,
+  title: 'Data Engineering Intro',
+  category: 'Data',
+  author: 'Mark Lee',
+  price: 800
+}
+{
+  _id: ObjectId('69df098ab38162dddd3b9d75'),
+  book_id: 104,
+  title: 'SQL for Beginners',
+  category: 'Database',
+  author: 'David Miller',
+  price: 450
+}
+{
+  _id: ObjectId('69df098ab38162dddd3b9d76'),
+  book_id: 105,
+  title: 'Machine Learning Start',
+  category: 'AI',
+  author: 'Sara Khan',
+  price: 900
+}
+db.borrowings.find()
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7a'),
+  borrow_id: 1001,
+  member_id: 1,
+  book_id: 101,
+  days_borrowed: 5,
+  borrow_date: '2026-03-01'
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7b'),
+  borrow_id: 1002,
+  member_id: 2,
+  book_id: 102,
+  days_borrowed: 3,
+  borrow_date: '2026-03-02'
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7c'),
+  borrow_id: 1003,
+  member_id: 1,
+  book_id: 103,
+  days_borrowed: 7,
+  borrow_date: '2026-03-03'
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7d'),
+  borrow_id: 1004,
+  member_id: 3,
+  book_id: 104,
+  days_borrowed: 4,
+  borrow_date: '2026-03-05'
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7e'),
+  borrow_id: 1005,
+  member_id: 5,
+  book_id: 105,
+  days_borrowed: 10,
+  borrow_date: '2026-03-07'
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7f'),
+  borrow_id: 1006,
+  member_id: 5,
+  book_id: 101,
+  days_borrowed: 2,
+  borrow_date: '2026-03-08'
+}
+db.members.find({ city: "Hyderabad" })
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6a'),
+  member_id: 1,
+  name: 'Aarav',
+  city: 'Hyderabad',
+  membership_type: 'Gold'
+}
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6e'),
+  member_id: 5,
+  name: 'Kiran',
+  city: 'Hyderabad',
+  membership_type: 'Gold'
+}
+db.books.find({ category: "Database" })
+{
+  _id: ObjectId('69df098ab38162dddd3b9d72'),
+  book_id: 101,
+  title: 'MongoDB Basics',
+  category: 'Database',
+  author: 'John Smith',
+  price: 500
+}
+{
+  _id: ObjectId('69df098ab38162dddd3b9d75'),
+  book_id: 104,
+  title: 'SQL for Beginners',
+  category: 'Database',
+  author: 'David Miller',
+  price: 450
+}
+db.books.find({ price: { $gt: 600 } })
+{
+  _id: ObjectId('69df098ab38162dddd3b9d73'),
+  book_id: 102,
+  title: 'Python Fundamentals',
+  category: 'Programming',
+  author: 'Alice Brown',
+  price: 650
+}
+{
+  _id: ObjectId('69df098ab38162dddd3b9d74'),
+  book_id: 103,
+  title: 'Data Engineering Intro',
+  category: 'Data',
+  author: 'Mark Lee',
+  price: 800
+}
+{
+  _id: ObjectId('69df098ab38162dddd3b9d76'),
+  book_id: 105,
+  title: 'Machine Learning Start',
+  category: 'AI',
+  author: 'Sara Khan',
+  price: 900
+}
+db.borrowings.find({ days_borrowed: { $gt: 5 } })
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7c'),
+  borrow_id: 1003,
+  member_id: 1,
+  book_id: 103,
+  days_borrowed: 7,
+  borrow_date: '2026-03-03'
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7e'),
+  borrow_id: 1005,
+  member_id: 5,
+  book_id: 105,
+  days_borrowed: 10,
+  borrow_date: '2026-03-07'
+}
+db.books.find().sort({ price: -1 })
+{
+  _id: ObjectId('69df098ab38162dddd3b9d76'),
+  book_id: 105,
+  title: 'Machine Learning Start',
+  category: 'AI',
+  author: 'Sara Khan',
+  price: 900
+}
+{
+  _id: ObjectId('69df098ab38162dddd3b9d74'),
+  book_id: 103,
+  title: 'Data Engineering Intro',
+  category: 'Data',
+  author: 'Mark Lee',
+  price: 800
+}
+{
+  _id: ObjectId('69df098ab38162dddd3b9d73'),
+  book_id: 102,
+  title: 'Python Fundamentals',
+  category: 'Programming',
+  author: 'Alice Brown',
+  price: 650
+}
+{
+  _id: ObjectId('69df098ab38162dddd3b9d72'),
+  book_id: 101,
+  title: 'MongoDB Basics',
+  category: 'Database',
+  author: 'John Smith',
+  price: 500
+}
+{
+  _id: ObjectId('69df098ab38162dddd3b9d75'),
+  book_id: 104,
+  title: 'SQL for Beginners',
+  category: 'Database',
+  author: 'David Miller',
+  price: 450
+}
+db.members.find().sort({ name: 1 })
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6a'),
+  member_id: 1,
+  name: 'Aarav',
+  city: 'Hyderabad',
+  membership_type: 'Gold'
+}
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6e'),
+  member_id: 5,
+  name: 'Kiran',
+  city: 'Hyderabad',
+  membership_type: 'Gold'
+}
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6b'),
+  member_id: 2,
+  name: 'Priya',
+  city: 'Bangalore',
+  membership_type: 'Silver'
+}
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6c'),
+  member_id: 3,
+  name: 'Rahul',
+  city: 'Mumbai',
+  membership_type: 'Gold'
+}
+{
+  _id: ObjectId('69df097bb38162dddd3b9d6d'),
+  member_id: 4,
+  name: 'Sneha',
+  city: 'Delhi',
+  membership_type: 'Silver'
+}
+db.members.countDocuments()
+5
+db.books.countDocuments()
+5
+db.books.countDocuments({ category: "Database" })
+2
+db.books.aggregate([
+  { $group: { _id: null, avg_price: { $avg: "$price" } } }
+])
+{
+  _id: null,
+  avg_price: 660
+}
+db.books.aggregate([
+  { $group: { _id: null, max_price: { $max: "$price" } } }
+])
+{
+  _id: null,
+  max_price: 900
+}
+db.books.aggregate([
+  { $group: { _id: null, min_price: { $min: "$price" } } }
+])
+{
+  _id: null,
+  min_price: 450
+}
+db.borrowings.aggregate([
+  {
+    $group: {
+      _id: "$member_id",
+      total_days: { $sum: "$days_borrowed" }
+    }
+  }
+])
+{
+  _id: 5,
+  total_days: 12
+}
+{
+  _id: 3,
+  total_days: 4
+}
+{
+  _id: 1,
+  total_days: 12
+}
+{
+  _id: 2,
+  total_days: 3
+}
+db.borrowings.aggregate([
+  {
+    $lookup: {
+      from: "members",
+      localField: "member_id",
+      foreignField: "member_id",
+      as: "member_details"
+    }
+  }
+])
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7a'),
+  borrow_id: 1001,
+  member_id: 1,
+  book_id: 101,
+  days_borrowed: 5,
+  borrow_date: '2026-03-01',
+  member_details: [
+    {
+      _id: ObjectId('69df097bb38162dddd3b9d6a'),
+      member_id: 1,
+      name: 'Aarav',
+      city: 'Hyderabad',
+      membership_type: 'Gold'
+    }
+  ]
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7b'),
+  borrow_id: 1002,
+  member_id: 2,
+  book_id: 102,
+  days_borrowed: 3,
+  borrow_date: '2026-03-02',
+  member_details: [
+    {
+      _id: ObjectId('69df097bb38162dddd3b9d6b'),
+      member_id: 2,
+      name: 'Priya',
+      city: 'Bangalore',
+      membership_type: 'Silver'
+    }
+  ]
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7c'),
+  borrow_id: 1003,
+  member_id: 1,
+  book_id: 103,
+  days_borrowed: 7,
+  borrow_date: '2026-03-03',
+  member_details: [
+    {
+      _id: ObjectId('69df097bb38162dddd3b9d6a'),
+      member_id: 1,
+      name: 'Aarav',
+      city: 'Hyderabad',
+      membership_type: 'Gold'
+    }
+  ]
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7d'),
+  borrow_id: 1004,
+  member_id: 3,
+  book_id: 104,
+  days_borrowed: 4,
+  borrow_date: '2026-03-05',
+  member_details: [
+    {
+      _id: ObjectId('69df097bb38162dddd3b9d6c'),
+      member_id: 3,
+      name: 'Rahul',
+      city: 'Mumbai',
+      membership_type: 'Gold'
+    }
+  ]
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7e'),
+  borrow_id: 1005,
+  member_id: 5,
+  book_id: 105,
+  days_borrowed: 10,
+  borrow_date: '2026-03-07',
+  member_details: [
+    {
+      _id: ObjectId('69df097bb38162dddd3b9d6e'),
+      member_id: 5,
+      name: 'Kiran',
+      city: 'Hyderabad',
+      membership_type: 'Gold'
+    }
+  ]
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7f'),
+  borrow_id: 1006,
+  member_id: 5,
+  book_id: 101,
+  days_borrowed: 2,
+  borrow_date: '2026-03-08',
+  member_details: [
+    {
+      _id: ObjectId('69df097bb38162dddd3b9d6e'),
+      member_id: 5,
+      name: 'Kiran',
+      city: 'Hyderabad',
+      membership_type: 'Gold'
+    }
+  ]
+}
+db.borrowings.aggregate([
+  {
+    $lookup: {
+      from: "books",
+      localField: "book_id",
+      foreignField: "book_id",
+      as: "book_details"
+    }
+  }
+])
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7a'),
+  borrow_id: 1001,
+  member_id: 1,
+  book_id: 101,
+  days_borrowed: 5,
+  borrow_date: '2026-03-01',
+  book_details: [
+    {
+      _id: ObjectId('69df098ab38162dddd3b9d72'),
+      book_id: 101,
+      title: 'MongoDB Basics',
+      category: 'Database',
+      author: 'John Smith',
+      price: 500
+    }
+  ]
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7b'),
+  borrow_id: 1002,
+  member_id: 2,
+  book_id: 102,
+  days_borrowed: 3,
+  borrow_date: '2026-03-02',
+  book_details: [
+    {
+      _id: ObjectId('69df098ab38162dddd3b9d73'),
+      book_id: 102,
+      title: 'Python Fundamentals',
+      category: 'Programming',
+      author: 'Alice Brown',
+      price: 650
+    }
+  ]
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7c'),
+  borrow_id: 1003,
+  member_id: 1,
+  book_id: 103,
+  days_borrowed: 7,
+  borrow_date: '2026-03-03',
+  book_details: [
+    {
+      _id: ObjectId('69df098ab38162dddd3b9d74'),
+      book_id: 103,
+      title: 'Data Engineering Intro',
+      category: 'Data',
+      author: 'Mark Lee',
+      price: 800
+    }
+  ]
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7d'),
+  borrow_id: 1004,
+  member_id: 3,
+  book_id: 104,
+  days_borrowed: 4,
+  borrow_date: '2026-03-05',
+  book_details: [
+    {
+      _id: ObjectId('69df098ab38162dddd3b9d75'),
+      book_id: 104,
+      title: 'SQL for Beginners',
+      category: 'Database',
+      author: 'David Miller',
+      price: 450
+    }
+  ]
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7e'),
+  borrow_id: 1005,
+  member_id: 5,
+  book_id: 105,
+  days_borrowed: 10,
+  borrow_date: '2026-03-07',
+  book_details: [
+    {
+      _id: ObjectId('69df098ab38162dddd3b9d76'),
+      book_id: 105,
+      title: 'Machine Learning Start',
+      category: 'AI',
+      author: 'Sara Khan',
+      price: 900
+    }
+  ]
+}
+{
+  _id: ObjectId('69df0999b38162dddd3b9d7f'),
+  borrow_id: 1006,
+  member_id: 5,
+  book_id: 101,
+  days_borrowed: 2,
+  borrow_date: '2026-03-08',
+  book_details: [
+    {
+      _id: ObjectId('69df098ab38162dddd3b9d72'),
+      book_id: 101,
+      title: 'MongoDB Basics',
+      category: 'Database',
+      author: 'John Smith',
+      price: 500
+    }
+  ]
+}
+db.borrowings.aggregate([
+  {
+    $lookup: {
+      from: "members",
+      localField: "member_id",
+      foreignField: "member_id",
+      as: "member"
+    }
+  },
+  { $unwind: "$member" },
+  {
+    $lookup: {
+      from: "books",
+      localField: "book_id",
+      foreignField: "book_id",
+      as: "book"
+    }
+  },
+  { $unwind: "$book" },
+  {
+    $project: {
+      _id: 0,
+      member_name: "$member.name",
+      book_title: "$book.title"
+    }
+  }
+])
+{
+  member_name: 'Aarav',
+  book_title: 'MongoDB Basics'
+}
+{
+  member_name: 'Priya',
+  book_title: 'Python Fundamentals'
+}
+{
+  member_name: 'Aarav',
+  book_title: 'Data Engineering Intro'
+}
+{
+  member_name: 'Rahul',
+  book_title: 'SQL for Beginners'
+}
+{
+  member_name: 'Kiran',
+  book_title: 'Machine Learning Start'
+}
+{
+  member_name: 'Kiran',
+  book_title: 'MongoDB Basics'
+}
+db.borrowings.aggregate([
+  {
+    $group: {
+      _id: "$book_id",
+      total_borrowed: { $sum: 1 }
+    }
+  },
+  {
+    $lookup: {
+      from: "books",
+      localField: "_id",
+      foreignField: "book_id",
+      as: "book"
+    }
+  },
+  { $unwind: "$book" },
+  {
+    $project: {
+      _id: 0,
+      book_title: "$book.title",
+      total_borrowed: 1
+    }
+  }
+])
+{
+  total_borrowed: 1,
+  book_title: 'SQL for Beginners'
+}
+{
+  total_borrowed: 1,
+  book_title: 'Python Fundamentals'
+}
+{
+  total_borrowed: 2,
+  book_title: 'MongoDB Basics'
+}
+{
+  total_borrowed: 1,
+  book_title: 'Data Engineering Intro'
+}
+{
+  total_borrowed: 1,
+  book_title: 'Machine Learning Start'
+}
+db.borrowings.aggregate([
+  {
+    $group: {
+      _id: "$member_id",
+      total_books: { $sum: 1 }
+    }
+  }
+])
+{
+  _id: 5,
+  total_books: 2
+}
+{
+  _id: 2,
+  total_books: 1
+}
+{
+  _id: 1,
+  total_books: 2
+}
+{
+  _id: 3,
+  total_books: 1
+}
+db.borrowings.aggregate([
+  {
+    $group: {
+      _id: "$book_id",
+      count: { $sum: 1 }
+    }
+  },
+  { $sort: { count: -1 } },
+  { $limit: 1 }
+])
+{
+  _id: 101,
+  count: 2
+}
+db.borrowings.aggregate([
+  {
+    $lookup: {
+      from: "books",
+      localField: "book_id",
+      foreignField: "book_id",
+      as: "book"
+    }
+  },
+  { $unwind: "$book" },
+  {
+    $group: {
+      _id: "$book.category",
+      total_borrowings: { $sum: 1 }
+    }
+  }
+])
+{
+  _id: 'Data',
+  total_borrowings: 1
+}
+{
+  _id: 'Database',
+  total_borrowings: 3
+}
+{
+  _id: 'Programming',
+  total_borrowings: 1
+}
+{
+  _id: 'AI',
+  total_borrowings: 1
+}
+db.borrowings.aggregate([
+  {
+    $group: {
+      _id: "$member_id",
+      total_books: { $sum: 1 }
+    }
+  },
+  {
+    $match: {
+      total_books: { $gt: 1 }
+    }
+  }
+])
+{
+  _id: 5,
+  total_books: 2
+}
+{
+  _id: 1,
+  total_books: 2
+}
+db.borrowings.aggregate([
+  {
+    $group: {
+      _id: "$member_id",
+      total_books: { $sum: 1 }
+    }
+  },
+  {
+    $lookup: {
+      from: "members",
+      localField: "_id",
+      foreignField: "member_id",
+      as: "member"
+    }
+  },
+  { $unwind: "$member" },
+  {
+    $project: {
+      _id: 0,
+      name: "$member.name",
+      city: "$member.city",
+      total_books: 1
+    }
+  },
+  { $sort: { total_books: -1 } }
+])
+{
+  total_books: 2,
+  name: 'Aarav',
+  city: 'Hyderabad'
+}
+{
+  total_books: 2,
+  name: 'Kiran',
+  city: 'Hyderabad'
+}
+{
+  total_books: 1,
+  name: 'Priya',
+  city: 'Bangalore'
+}
+{
+  total_books: 1,
+  name: 'Rahul',
+  city: 'Mumbai'
+}
+library_db
+
+
