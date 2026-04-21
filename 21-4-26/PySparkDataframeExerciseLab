@@ -1,0 +1,190 @@
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("PySpark Lab").getOrCreate()
+
+employees = spark.read.csv("employees.csv", header=True, inferSchema=True)
+
+departments = spark.read.csv("departments.csv", header=True, inferSchema=True)
+
+sales = spark.read.csv("sales.csv", header=True, inferSchema=True)
+
+employees_json = spark.read.json("employees_nested.json")
+
+employees.printSchema()
+departments.printSchema()
+sales.printSchema()
+employees_json.printSchema()
+
+employees.show(5)
+
+employees.count()
+
+employees.columns
+
+employees.show(3)
+
+employees.select("name", "salary").show()
+
+employees.withColumnRenamed("salary", "emp_salary").show()
+
+from pyspark.sql.functions import col
+employees.filter(col("joining_date") > "2023-01-01").show()
+
+employees.filter(col("salary") > 65000).show()
+
+employees.filter(col("department") == "IT").show()
+
+employees.filter((col("department") == "IT") & (col("salary") > 70000)).show()
+
+employees.drop("joining_date").show()
+
+employees.orderBy("salary").show()
+
+employees.orderBy(col("salary").desc()).show()
+
+employees.orderBy(col("salary").desc()).limit(3).show()
+
+from pyspark.sql.functions import sum, avg, max, min
+
+employees.select(sum("salary")).show()
+
+employees.select(avg("salary")).show()
+
+employees.select(max("salary")).show()
+
+employees.select(min("salary")).show()
+
+employees.groupBy("department").count().show()
+
+employees.groupBy("department").avg("salary").show()
+
+employees.groupBy("department").sum("salary").show()
+
+employees.join(departments, "department", "inner").show()
+
+employees.join(departments, "department", "left").show()
+
+employees.join(departments, "department") \
+    .select("name", "location").show()
+
+from pyspark.sql.functions import lit
+
+employees = employees.withColumn("bonus", col("salary") * 0.10)
+
+employees = employees.withColumn("company", lit("BotCampus"))
+
+employees.show()
+
+employees.filter(col("department").isNull()).show()
+
+employees.fillna({"department": "Unknown"}).show()
+
+employees.dropna().show()
+
+from pyspark.sql.functions import upper, length
+
+employees.withColumn("name_upper", upper("name")).show()
+
+employees.withColumn("name_length", length("name")).show()
+
+employees.withColumn("salary_in_lakhs", col("salary") / 100000).show()
+
+from pyspark.sql.functions import when
+
+employees.withColumn(
+    "salary_grade",
+    when(col("salary") >= 75000, "High")
+    .when((col("salary") >= 60000) & (col("salary") < 75000), "Medium")
+    .otherwise("Low")
+).show()
+
+from pyspark.sql.functions import to_date, year, month
+
+employees = employees.withColumn("joining_date", to_date("joining_date"))
+
+employees.withColumn("year", year("joining_date")) \
+         .withColumn("month", month("joining_date")).show()
+
+new_data = [
+    (8, "John", "IT", 65000, "2023-05-01"),
+    (9, "Sara", "HR", 62000, "2023-06-01")
+]
+
+columns = employees.columns[:5]
+new_df = spark.createDataFrame(new_data, columns)
+
+employees.union(new_df).show()
+
+employees.unionByName(new_df).show()
+
+from pyspark.sql.window import Window
+from pyspark.sql.functions import rank, row_number
+
+windowSpec = Window.partitionBy("department").orderBy(col("salary").desc())
+
+employees.withColumn("rank", rank().over(windowSpec)).show()
+
+employees.withColumn("row_number", row_number().over(windowSpec)).show()
+
+employees_json.select(
+    "emp_id",
+    "address.city",
+    "address.state"
+).show()
+
+from pyspark.sql.functions import explode
+
+employees_json.select("name", explode("skills")).show()
+
+sales.select(sum("amount")).show()
+
+sales.groupBy("emp_id").sum("amount").show()
+
+sales.groupBy("emp_id").sum("amount") \
+     .orderBy(col("sum(amount)").desc()).show(1)
+
+sales.groupBy("product").sum("amount").show()
+
+from pyspark.sql.functions import udf
+from pyspark.sql.types import StringType
+
+def categorize(amount):
+    if amount > 50000:
+        return "Premium"
+    elif amount >= 20000:
+        return "Medium"
+    else:
+        return "Small"
+
+udf_func = udf(categorize, StringType())
+
+sales.withColumn("sale_category", udf_func("amount")).show()
+
+pandas_df = employees.toPandas()
+
+pandas_df[pandas_df["salary"] > 65000]
+
+import ipywidgets as widgets
+
+dept_dropdown = widgets.Dropdown(options=["IT", "HR", "Finance"])
+salary_slider = widgets.IntSlider(min=50000, max=100000)
+
+dept_dropdown, salary_slider
+
+top_employee = employees.orderBy(col("salary").desc()).first()
+
+avg_salary = employees.select(avg("salary")).first()[0]
+
+dept_count = employees.groupBy("department").count().collect()
+
+total_sales = sales.select(sum("amount")).first()[0]
+
+best_sales_emp = sales.groupBy("emp_id").sum("amount") \
+    .orderBy(col("sum(amount)").desc()).first()
+
+with open("final_report.txt", "w") as f:
+    f.write(f"Top Employee: {top_employee}\n")
+    f.write(f"Average Salary: {avg_salary}\n")
+    f.write(f"Department Count: {dept_count}\n")
+    f.write(f"Total Sales: {total_sales}\n")
+    f.write(f"Best Sales Employee: {best_sales_emp}\n")
