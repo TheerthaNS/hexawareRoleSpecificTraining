@@ -1,0 +1,13 @@
+import pandas as pd
+df = pd.read_csv("employees.csv")
+print("Total Employees:", len(df))
+print(df[df['department'] == 'IT'])
+print(df[df['salary'] > 75000])
+print("Average Salary:", df['salary'].mean())
+print(df.loc[df['salary'].idxmax()])
+print(df.loc[df['salary'].idxmin()])
+print(df['department'].value_counts())
+print(df.groupby('department')['salary'].mean())
+print(df['city'].value_counts())
+print(df.nlargest(5, 'salary'))
+print(df[(df['city'] == 'Hyderabad') & (df['salary'] > 70000)])
