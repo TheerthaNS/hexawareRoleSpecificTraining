@@ -1,0 +1,10 @@
+employees = pd.read_csv("employees.csv")
+sales = pd.read_csv("sales.csv")
+sales['revenue'] = sales['quantity'] * sales['price']
+merged = pd.merge(employees, sales, on='emp_id')
+emp_rev = merged.groupby('name')['revenue'].sum().reset_index()
+print(emp_rev)
+print(emp_rev.sort_values(by='revenue', ascending=False).head(5))
+dept_rev = merged.groupby('department')['revenue'].sum()
+print(dept_rev.idxmax())
+emp_rev.to_csv("final_sales_report.csv", index=False)
