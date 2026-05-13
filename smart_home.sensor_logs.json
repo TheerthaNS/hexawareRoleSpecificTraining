@@ -1,0 +1,44 @@
+[{
+  "_id": {
+    "$oid": "6a03fde07bb6ce821a58e452"
+  },
+  "device_id": 1,
+  "device_name": "Air Conditioner",
+  "room": "Living Room",
+  "timestamp": "2026-05-13T10:30:00",
+  "energy_kwh": 5.6,
+  "temperature": 24
+},
+{
+  "_id": {
+    "$oid": "6a03fdf87bb6ce821a58e454"
+  },
+  "device_id": 2,
+  "device_name": "Refrigerator",
+  "room": "Kitchen",
+  "timestamp": "2026-05-13T11:00:00",
+  "energy_kwh": 2.4,
+  "temperature": 18
+},
+{
+  "_id": {
+    "$oid": "6a03fe057bb6ce821a58e456"
+  },
+  "device_id": 3,
+  "device_name": "Smart TV",
+  "room": "Living Room",
+  "timestamp": "2026-05-13T12:00:00",
+  "energy_kwh": 1.2,
+  "temperature": 30
+},
+{
+  "_id": {
+    "$oid": "6a03fe117bb6ce821a58e458"
+  },
+  "device_id": 4,
+  "device_name": "Washing Machine",
+  "room": "Kitchen",
+  "timestamp": "2026-05-13T13:00:00",
+  "energy_kwh": 3.7,
+  "temperature": 26
+}]
