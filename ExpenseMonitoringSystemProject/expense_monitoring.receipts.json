@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "6a054ab98f93488fc40b373c"
+  },
+  "user_id": 1,
+  "receipt_name": "restaurant_bill.jpg",
+  "notes": "Dinner with friends",
+  "amount": 500
+},
+{
+  "_id": {
+    "$oid": "6a054ac58f93488fc40b373e"
+  },
+  "user_id": 2,
+  "receipt_name": "shopping_bill.jpg",
+  "notes": "Clothing purchase",
+  "amount": 3000
+}]
