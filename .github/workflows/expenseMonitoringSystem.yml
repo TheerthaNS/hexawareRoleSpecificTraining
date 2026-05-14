@@ -1,0 +1,25 @@
+name: Expense Monitoring Workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+  expense-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+
+    - name: Install Dependencies
+      run: |
+        pip install pandas numpy pyspark
+
+    - name: Run Expense Analysis
+      run: python ExpenseMonitoringSystemProject/expense_analysis.py
